@@ -1,4 +1,7 @@
-package com.sistema.inventario.categoria;
+package com.sistema.inventario.marca;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,13 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-import com.sistema.inventario.marca.Marca;
+import com.sistema.inventario.categoria.Categoria;
 
 @Entity
-public class Categoria {
-
+public class Marca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,35 +22,26 @@ public class Categoria {
     @Column(length = 45, nullable = false, unique = true)
     private String nombre;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "marca_id")
-    private Marca marca;
+    private List<Categoria> categorias = new ArrayList<>();
 
-    public Categoria() {
+    public Marca() {
     }
 
-    public Categoria(Integer id, String nombre) {
+    public Marca(Integer id, String nombre, List<Categoria> categorias) {
         this.id = id;
         this.nombre = nombre;
+        this.categorias = categorias;
     }
 
-    public Categoria(Integer id) {
+    public Marca(Integer id) {
         this.id = id;
     }
 
-    public Categoria(String nombre) {
+    public Marca(String nombre, List<Categoria> categorias) {
         this.nombre = nombre;
-    }
-
-    public Categoria(Integer id, String nombre, Marca marca) {
-        this.id = id;
-        this.nombre = nombre;
-        this.marca = marca;
-    }
-
-    public Categoria(String nombre, Marca marca) {
-        this.nombre = nombre;
-        this.marca = marca;
+        this.categorias = categorias;
     }
 
     public Integer getId() {
@@ -67,16 +60,11 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    public Marca getMarca() {
-        return marca;
+    public List<Categoria> getCategorias() {
+        return categorias;
     }
 
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
-    @Override
-    public String toString() {
-        return nombre;
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 }

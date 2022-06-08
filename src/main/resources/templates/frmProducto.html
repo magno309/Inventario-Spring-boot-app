@@ -28,11 +28,13 @@
     </nav>
     <div class="container text-center">
         <div>
-            <h1>Agregar producto</h1>
+            <h1 th:if="${producto.id == null}">Agregar producto</h1>
+            <h1 th:unless="${producto.id == null}">Editar producto</h1>
         </div>
         <div>
             <form th:action="@{/productos/guardar}" th:object="${producto}" method="post"
                 style="max-width: 600px; margin: 0 auto;">
+                <input type="hidden" th:field="*{id}" th:value="${producto.id}" />
                 <div class="m-3">
                     <div class="form-group row">
                         <label for="txtNombreProducto" class="col-form-label col-sm-4">Nombre de producto:</label>

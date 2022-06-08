@@ -28,37 +28,33 @@
     </nav>
     <div class="container text-center">
         <div>
-            <h1>Bienvenido a la aplicación de inventario</h1>
+            <h1 th:if="${marca.id == null}">Agregar marca</h1>
+            <h1 th:unless="${marca.id == null}">Editar marca</h1>
         </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/categorias}">
-                Lista de categorias
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/categorias/nuevo}">
-                Agregar categoria
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/productos}">
-                Lista de productos
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/productos/nuevo}">
-                Nuevo producto
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/marcas}">
-                Lista de marcas
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/marcas/nuevo}">
-                Nueva marca
-            </a>
+        <div>
+            <form th:action="@{/marcas/guardar}" th:object="${marca}" method="post"
+                style="max-width: 600px; margin: 0 auto;">
+                <input type="hidden" th:field="*{id}" th:value="${marca.id}" />
+                <div class="m-3">
+                    <div class="form-group row">
+                        <label for="txtNombreMarca" class="col-form-label col-sm-4">Nombre de la marca:</label>
+                        <input id="txtNombreMarca" class="col-sm-8 form-control" type="text" th:field="*{nombre}"
+                            required>
+                    </div>
+                    <div class="form-group row">
+                        <label for="txtCategoriaMarca" class="col-form-label col-sm-4">Categorias:</label>
+                        <select id="txtCategoriaMarca" class="form-control col-sm-8" th:field="*{categorias}" multiple="multiple"
+                            required>
+                            <th:block th:each="categoria:${listaCategorias}">
+                                <option th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button th:if="${marca.id == null}" type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

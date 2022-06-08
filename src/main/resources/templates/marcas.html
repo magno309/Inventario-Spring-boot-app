@@ -28,37 +28,35 @@
     </nav>
     <div class="container text-center">
         <div>
-            <h1>Bienvenido a la aplicación de inventario</h1>
+            <h1>Lista de marcas</h1>
         </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/categorias}">
-                Lista de categorias
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/categorias/nuevo}">
-                Agregar categoria
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/productos}">
-                Lista de productos
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/productos/nuevo}">
-                Nuevo producto
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/marcas}">
-                Lista de marcas
-            </a>
-        </div>
-        <div class="p-2">
-            <a class="h2" th:href="@{/marcas/nuevo}">
-                Nueva marca
-            </a>
+        <br>
+        <div>
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Categorias</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="marca:${listaMarcas}">
+                        <td th:text="${marca.id}"></td>
+                        <td th:text="${marca.nombre}"></td>
+                        <td th:text="${marca.categorias}"></td>
+                        <td>
+                            <a class="btn btn-info" th:href="@{'/marcas/editar/' + ${marca.id}}">
+                                <i class="fa-solid fa-wrench"></i>
+                            </a>
+                            <a class="btn btn-danger" th:href="@{'/marcas/eliminar/' + ${marca.id}}">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -67,6 +65,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
         crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/d18b1e4f9d.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
